@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>News Scraper</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: linear-gradient(135deg, #e8f5e9 0%, #b2dfdb 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1020px;
+            margin: 7vh auto 0 auto;
+            background: #fff;
+            padding: 2.5em 2em 2em 2em;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(44, 62, 80, 0.13);
+        }
+        h1 {
+            text-align: center;
+            color: #1b5e20;
+            font-size: 2.1em;
+            margin-bottom: 1.2em;
+            letter-spacing: 1px;
+        }
+        label {
+            display: block;
+            margin-top: 1.2em;
+            color: #2e7d32;
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+        input, select {
+            width: 100%;
+            padding: 0.7em;
+            margin-top: 0.5em;
+            border-radius: 6px;
+            border: 1px solid #bdbdbd;
+            font-size: 1em;
+            background: #f9fbe7;
+            transition: border 0.2s, box-shadow 0.2s;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus {
+            border: 1.5px solid #43a047;
+            outline: none;
+            box-shadow: 0 0 0 2px #a5d6a7;
+        }
+        button {
+            margin-top: 2.2em;
+            width: 100%;
+            padding: 0.9em;
+            background: linear-gradient(90deg, #43a047 0%, #388e3c 100%);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(67, 160, 71, 0.13);
+            transition: background 0.2s, transform 0.1s;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #388e3c 0%, #43a047 100%);
+            transform: translateY(-2px) scale(1.02);
+        }
+        .result {
+            margin-top: 2em;
+            padding: 1.2em 1em;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(44, 62, 80, 0.07);
+            background: #f5f5f5;
+            font-size: 1em;
+            word-break: break-word;
+        }
+        .success {
+            border-left: 6px solid #43a047;
+            background: #e8f5e9;
+            color: #1b5e20;
+        }
+        .error {
+            border-left: 6px solid #e53935;
+            background: #ffebee;
+            color: #b71c1c;
+        }
+        pre {
+            background: #f1f8e9;
+            padding: 1em;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.98em;
+        }
+        @media (max-width: 600px) {
+            .container {
+                max-width: 98vw;
+                margin: 2vw;
+                padding: 1.2em 0.5em 1em 0.5em;
+            }
+            h1 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Modal Overlay -->
+    <div id="welcomeModal" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(44,62,80,0.13); display:flex; align-items:center; justify-content:center; z-index:3001;">
+        <div style="background:#fff; padding:2.5em 2em; border-radius:16px; box-shadow:0 8px 32px rgba(44,62,80,0.18); max-width:400px; width:90%; text-align:center;">
+            <h2 style="color:#1b5e20; margin-bottom:1em;">Welcome to News Scraper!</h2>
+            <p style="color:#333; font-size:1.1em; margin-bottom:2em;">Easily extract news content from any website. Click below to get started.</p>
+            <button id="welcomeContinueBtn" style="width:100%; padding:0.9em; background:linear-gradient(90deg, #43a047 0%, #388e3c 100%); color:#fff; border:none; border-radius:6px; font-size:1.1em; font-weight:700; cursor:pointer; box-shadow:0 2px 8px rgba(67,160,71,0.13); transition:background 0.2s;">Continue</button>
+        </div>
+    </div>
+    <!-- Floating Settings Button -->
+    <button id="settingsBtn" aria-label="Settings" style="position:fixed; bottom:2em; right:2em; background:#43a047; border:none; border-radius:50%; width:56px; height:56px; box-shadow:0 2px 8px rgba(44,62,80,0.18); color:#fff; font-size:2em; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2000;">
+        <span>&#9881;</span>
+    </button>
+    <div class="container" style="margin-top: 4.5em; display:none;">
+        <div style="display:flex; justify-content:flex-end; margin-bottom:1em;">
+            <button id="logoutBtn" type="button" style="background:#e53935; color:#fff; border:none; border-radius:5px; padding:0.6em 1.2em; font-size:1em; font-family:'Montserrat',Arial,sans-serif; font-weight:600; cursor:pointer; box-shadow:0 1px 4px rgba(229,57,53,0.13); transition:background 0.2s;">Logout</button>
+        </div>
+        <header style="display: flex; align-items: center; justify-content: center; gap: 0.7em; margin-bottom: 0.5em;">
+            <span aria-label="News Icon" style="font-size:2.2em;">📰</span>
+            <h1 style="margin: 0;">News Scraper</h1>
+        </header>
+        <form id="scrapeForm">
+            <label for="url">News Website URL:</label>
+            <input type="url" id="url" name="url" required placeholder="https://example.com/news">
+            <button type="submit">Scrape</button>
+        </form>
+        <div id="loadingSpinner" style="display:none; text-align:center; margin:1.5em 0;">
+            <span style="display:inline-block; width:32px; height:32px; border:4px solid #b2dfdb; border-top:4px solid #43a047; border-radius:50%; animation:spin 1s linear infinite;"></span>
+            <style>@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}</style>
+            <div style="margin-top:0.7em; color:#388e3c; font-size:1em;">Scraping, please wait...</div>
+        </div>
+        <div id="result" class="result" style="display:none;"></div>
+        <hr style="margin: 2.5em 0 1.5em 0; border: none; border-top: 1.5px solid #e0e0e0;">
+        <section aria-label="About News Scraper" style="margin-bottom: 1.5em;">
+            <h2 style="color:#388e3c; font-size:1.3em; margin-top:0;">About This Tool</h2>
+            <p style="color:#333; line-height:1.6; margin-bottom:0.7em;">
+                <strong>News Scraper</strong> lets you extract content from any news website by providing its URL. Optionally, you can specify a CSS selector to target specific sections (like <code>.content</code> or <code>#main-article</code>).
+            </p>
+            <ul style="color:#444; margin:0 0 0.7em 1.2em; padding:0; font-size:1em;">
+                <li>Fast and easy scraping of news articles</li>
+                <li>Customizable with CSS selectors</li>
+                <li>Results displayed instantly below the form</li>
+            </ul>
+            <p style="color:#333; font-size:0.98em; margin-bottom:0;">
+                <strong>How to use:</strong> Enter the news website URL, optionally add a CSS selector, and click <b>Scrape</b>. The extracted content will appear below.
+            </p>
+        </section>
+        <section aria-label="Analytics" style="margin-bottom: 1.5em;">
+            <h2 style="color:#388e3c; font-size:1.15em; margin-top:0;">Analytics</h2>
+            <div id="analyticsCard" style="background:#f8f8f8; border-radius:8px; box-shadow:0 1px 4px rgba(44,62,80,0.07); padding:1.2em 1em; display:flex; flex-wrap:wrap; gap:2em; font-size:1.05em;">
+                <div><strong>Total Scrapes:</strong> <span id="totalScrapes">0</span></div>
+                <div><strong>Success Rate:</strong> <span style="color:#43a047; font-size:1.1em; vertical-align:middle;">&#10004;</span> <span id="successRate">0%</span></div>
+                <div><strong>Failed:</strong> <span style="color:#e53935; font-size:1.1em; vertical-align:middle;">&#10006;</span> <span id="failCount">0</span></div>
+                <div><strong>Most Scraped Domain:</strong> <span id="mostDomain">-</span></div>
+            </div>
+        </section>
+        <section aria-label="Recently Scraped Data" style="margin-bottom: 1.5em;">
+            <h2 style="color:#388e3c; font-size:1.15em; margin-top:0;">Recently Scraped Data</h2>
+            <table id="recentTable" style="width:100%; border-collapse:collapse; background:#f8f8f8; border-radius:8px; overflow:hidden; font-size:0.98em;">
+                <thead>
+                    <tr style="background:#e0f2f1; color:#1b5e20;">
+                        <th style="padding:0.5em; text-align:left;">Time</th>
+                        <th style="padding:0.5em; text-align:left;">URL</th>
+                        <th style="padding:0.5em; text-align:left;">Status</th>
+                        <th style="padding:0.5em; text-align:left;">Preview</th>
+                    </tr>
+                </thead>
+                <tbody id="recentTableBody">
+                    <!-- Recent scrapes will be inserted here -->
+                </tbody>
+            </table>
+        </section>
+        <div style="text-align:right; margin-bottom:1.5em; display:flex; gap:0.7em; flex-wrap:wrap; justify-content: flex-end;">
+            <button id="downloadExcelBtn" type="button" style="background:#388e3c; color:#fff; border:none; border-radius:5px; padding:0.6em 1.2em; font-size:1em; font-family:'Montserrat',Arial,sans-serif; font-weight:600; cursor:pointer; box-shadow:0 1px 4px rgba(44,62,80,0.07); transition:background 0.2s;">
+                Download Recent Scrapes
+            </button>
+            <button id="exportAllBtn" type="button" style="background:#1976d2; color:#fff; border:none; border-radius:5px; padding:0.6em 1.2em; font-size:1em; font-family:'Montserrat',Arial,sans-serif; font-weight:600; cursor:pointer; box-shadow:0 1px 4px rgba(44,62,80,0.07); transition:background 0.2s;">
+                Export All Data
+            </button>
+            <button id="clearAllBtn" type="button" style="background:#e53935; color:#fff; border:none; border-radius:5px; padding:0.6em 1.2em; font-size:1em; font-family:'Montserrat',Arial,sans-serif; font-weight:600; cursor:pointer; box-shadow:0 1px 4px rgba(44,62,80,0.07); transition:background 0.2s;">
+                Clear All Data
+            </button>
+        </div>
+    </div>
+    <footer style="text-align:center; margin: 2.5em 0 1em 0; color:#888; font-size:0.98em; display:none;">
+        &copy; 2025 News Scraper &mdash; Created by Adhurim
+    </footer>
+    <!-- Login/Signup Modal Overlay -->
+    <div id="authModal" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(44,62,80,0.13); display:none; align-items:center; justify-content:center; z-index:3001;">
+        <div style="background:#fff; padding:2.5em 2em; border-radius:16px; box-shadow:0 8px 32px rgba(44,62,80,0.18); max-width:400px; width:90%; text-align:center;">
+            <div style="display:flex; justify-content:center; gap:1em; margin-bottom:1.5em;">
+                <button id="loginTab" style="flex:1; padding:0.7em; border:none; border-radius:6px 6px 0 0; background:#43a047; color:#fff; font-weight:700; cursor:pointer;">Login</button>
+                <button id="signupTab" style="flex:1; padding:0.7em; border:none; border-radius:6px 6px 0 0; background:#e0e0e0; color:#333; font-weight:700; cursor:pointer;">Sign Up</button>
+            </div>
+            <form id="loginForm">
+                <input type="text" id="loginUsername" placeholder="Username" required style="width:100%; padding:0.7em; margin-bottom:1em; border-radius:6px; border:1px solid #bdbdbd; font-size:1em; background:#f9fbe7;">
+                <input type="password" id="loginPassword" placeholder="Password" required style="width:100%; padding:0.7em; margin-bottom:1.5em; border-radius:6px; border:1px solid #bdbdbd; font-size:1em; background:#f9fbe7;">
+                <button type="submit" style="width:100%; padding:0.9em; background:linear-gradient(90deg, #43a047 0%, #388e3c 100%); color:#fff; border:none; border-radius:6px; font-size:1.1em; font-weight:700; cursor:pointer;">Login</button>
+            </form>
+            <form id="signupForm" style="display:none;">
+                <input type="text" id="signupUsername" placeholder="Username" required style="width:100%; padding:0.7em; margin-bottom:1em; border-radius:6px; border:1px solid #bdbdbd; font-size:1em; background:#f9fbe7;">
+                <input type="password" id="signupPassword" placeholder="Password" required style="width:100%; padding:0.7em; margin-bottom:1.5em; border-radius:6px; border:1px solid #bdbdbd; font-size:1em; background:#f9fbe7;">
+                <button type="submit" style="width:100%; padding:0.9em; background:linear-gradient(90deg, #43a047 0%, #388e3c 100%); color:#fff; border:none; border-radius:6px; font-size:1.1em; font-weight:700; cursor:pointer;">Sign Up</button>
+            </form>
+            <div id="authError" style="color:#e53935; margin-top:1em; min-height:1.5em;"></div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('scrapeForm').onsubmit = async function(e) {
+            e.preventDefault();
+            const url = document.getElementById('url').value;
+            const resultDiv = document.getElementById('result');
+            const spinner = document.getElementById('loadingSpinner');
+            resultDiv.style.display = 'none';
+            resultDiv.className = 'result';
+            spinner.style.display = 'block';
+
+            let status = 'success';
+            let content = '';
+            try {
+                const response = await fetch('/scrape_custom', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url })
+                });
+                const data = await response.json();
+                spinner.style.display = 'none';
+                if (response.ok) {
+                    resultDiv.classList.add('success');
+                    let html = `<strong>✔ Success! Discovered Endpoints:</strong><br><table style='width:100%; border-collapse:collapse; margin-top:1em;'><thead><tr style='background:#e0f2f1; color:#1b5e20;'><th style='padding:0.5em; text-align:left;'>Text</th><th style='padding:0.5em; text-align:left;'>URL</th></tr></thead><tbody>`;
+                    for (const ep of data.endpoints) {
+                        html += `<tr><td style='padding:0.5em; color:#444; max-width:350px; word-break:break-word; font-size:0.92em;'>${ep.preview}</td><td style='padding:0.5em; word-break:break-all;'><a href='${ep.url}' target='_blank' style='color:#1976d2; text-decoration:underline;'>${ep.url}</a></td></tr>`;
+                    }
+                    html += '</tbody></table>';
+                    resultDiv.innerHTML = html;
+                    status = 'success';
+                    content = 'Discovered ' + data.endpoints.length + ' endpoints.';
+                } else {
+                    resultDiv.classList.add('error');
+                    resultDiv.innerHTML = `<strong>✖ Error:</strong> ${data.detail || 'Unknown error'}`;
+                    status = 'fail';
+                    content = data.detail || 'Unknown error';
+                }
+            } catch (err) {
+                spinner.style.display = 'none';
+                resultDiv.classList.add('error');
+                resultDiv.innerHTML = `<strong>✖ Error:</strong> ${err}`;
+                status = 'fail';
+                content = String(err);
+            }
+            resultDiv.style.display = 'block';
+            addRecentScrape(url, status, content);
+        }
+
+        // --- Recently Scraped Data Logic ---
+        function addRecentScrape(url, status, content) {
+            const now = new Date();
+            const time = now.toLocaleString();
+            const preview = (content || '').replace(/\s+/g, ' ').slice(0, 100) + (content && content.length > 100 ? '...' : '');
+            const entry = { time, url, status, preview };
+            let recents = JSON.parse(localStorage.getItem('recentScrapes') || '[]');
+            recents.unshift(entry);
+            if (recents.length > 5) recents = recents.slice(0, 5);
+            localStorage.setItem('recentScrapes', JSON.stringify(recents));
+            // --- Store in allScrapes ---
+            let allScrapes = JSON.parse(localStorage.getItem('allScrapes') || '[]');
+            allScrapes.unshift(entry);
+            localStorage.setItem('allScrapes', JSON.stringify(allScrapes));
+            // Update analytics
+            updateAnalytics(url, status);
+            renderRecentScrapes();
+        }
+
+        // --- Analytics Logic ---
+        function updateAnalytics(url, status) {
+            // Total scrapes
+            let stats = JSON.parse(localStorage.getItem('scrapeStats') || '{"total":0,"success":0,"fail":0,"domains":{}}');
+            stats.total++;
+            if (status === 'success') stats.success++;
+            else stats.fail++;
+            // Domain counting
+            try {
+                const domain = (new URL(url)).hostname.replace(/^www\./, '');
+                stats.domains[domain] = (stats.domains[domain] || 0) + 1;
+            } catch {}
+            localStorage.setItem('scrapeStats', JSON.stringify(stats));
+            renderAnalytics();
+        }
+
+        function renderRecentScrapes() {
+            const recents = JSON.parse(localStorage.getItem('recentScrapes') || '[]');
+            const tbody = document.getElementById('recentTableBody');
+            tbody.innerHTML = '';
+            recents.forEach(entry => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="padding:0.5em; vertical-align:top;">${entry.time}</td>
+                    <td style="padding:0.5em; vertical-align:top; word-break:break-all; color:#388e3c;">${entry.url}</td>
+                    <td style="padding:0.5em; vertical-align:top;">
+                        ${entry.status === 'success' ? '<span style=\'color:#43a047; font-size:1.2em;\' title=\'Success\'>&#10004;</span>' : '<span style=\'color:#e53935; font-size:1.2em;\' title=\'Failed\'>&#10006;</span>'}
+                    </td>
+                    <td style="padding:0.5em; vertical-align:top; color:#444;">${entry.preview}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderAnalytics() {
+            let stats = JSON.parse(localStorage.getItem('scrapeStats') || '{"total":0,"success":0,"fail":0,"domains":{}}');
+            document.getElementById('totalScrapes').textContent = stats.total;
+            let rate = stats.total ? Math.round((stats.success / stats.total) * 100) : 0;
+            document.getElementById('successRate').textContent = rate + '%';
+            document.getElementById('failCount').textContent = stats.fail;
+            // Most scraped domain
+            let mostDomain = '-';
+            let max = 0;
+            for (const [domain, count] of Object.entries(stats.domains)) {
+                if (count > max) { max = count; mostDomain = domain; }
+            }
+            document.getElementById('mostDomain').textContent = mostDomain;
+        }
+
+        // Download as Excel (CSV) feature
+        document.getElementById('downloadExcelBtn').onclick = function() {
+            const recents = JSON.parse(localStorage.getItem('recentScrapes') || '[]');
+            if (!recents.length) {
+                alert('No recent scrapes to export.');
+                return;
+            }
+            // CSV header
+            const header = ['Time', 'URL', 'Status', 'Preview'];
+            // CSV rows
+            const rows = recents.map(entry => [
+                '"' + entry.time.replace(/"/g, '""') + '"',
+                '"' + entry.url.replace(/"/g, '""') + '"',
+                entry.status === 'success' ? 'Success' : 'Failed',
+                '"' + entry.preview.replace(/"/g, '""') + '"'
+            ]);
+            const csvContent = [header.join(','), ...rows.map(r => r.join(','))].join('\r\n');
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'recent_scrapes.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        };
+
+        // Export All Data feature
+        document.getElementById('exportAllBtn').onclick = function() {
+            const allScrapes = JSON.parse(localStorage.getItem('allScrapes') || '[]');
+            if (!allScrapes.length) {
+                alert('No data to export.');
+                return;
+            }
+            const header = ['Time', 'URL', 'Status', 'Preview'];
+            const rows = allScrapes.map(entry => [
+                '"' + entry.time.replace(/"/g, '""') + '"',
+                '"' + entry.url.replace(/"/g, '""') + '"',
+                entry.status === 'success' ? 'Success' : 'Failed',
+                '"' + entry.preview.replace(/"/g, '""') + '"'
+            ]);
+            const csvContent = [header.join(','), ...rows.map(r => r.join(','))].join('\r\n');
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'all_scrapes.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        };
+        // Clear All Data feature
+        document.getElementById('clearAllBtn').onclick = function() {
+            if (confirm('Are you sure you want to clear all scrapes and analytics? This cannot be undone.')) {
+                localStorage.removeItem('recentScrapes');
+                localStorage.removeItem('allScrapes');
+                localStorage.removeItem('scrapeStats');
+                renderRecentScrapes();
+                renderAnalytics();
+                alert('All data cleared.');
+            }
+        };
+
+        // Render on page load
+        renderRecentScrapes();
+        renderAnalytics(); // Render analytics on page load
+
+        // Settings Modal Logic
+        const settingsModal = document.createElement('div');
+        settingsModal.id = 'settingsModal';
+        settingsModal.style.display = 'none';
+        settingsModal.style.position = 'fixed';
+        settingsModal.style.top = '0';
+        settingsModal.style.left = '0';
+        settingsModal.style.width = '100%';
+        settingsModal.style.height = '100%';
+        settingsModal.style.backgroundColor = 'rgba(0,0,0,0.5)';
+        settingsModal.style.justifyContent = 'center';
+        settingsModal.style.alignItems = 'center';
+        settingsModal.style.zIndex = '3000';
+        settingsModal.innerHTML = `
+            <div style="background:#fff; padding:2em; border-radius:10px; box-shadow:0 8px 32px rgba(44,62,80,0.13); max-width:400px; width:90%;">
+                <h2 style="color:#1b5e20; text-align:center; margin-bottom:1.5em;">Settings</h2>
+                <label for="settingRecentCount">Number of Recent Scrapes to Display:</label>
+                <input type="number" id="settingRecentCount" value="5" min="1" max="100" style="width:100%; padding:0.7em; margin-top:0.5em; border-radius:6px; border:1px solid #bdbdbd; font-size:1em; background:#f9fbe7;">
+                <label for="settingPreviewLength">Preview Length for Recent Scrapes:</label>
+                <input type="number" id="settingPreviewLength" value="100" min="1" max="500" style="width:100%; padding:0.7em; margin-top:0.5em; border-radius:6px; border:1px solid #bdbdbd; font-size:1em; background:#f9fbe7;">
+                <button style="margin-top:2em; width:100%; padding:0.9em; background:linear-gradient(90deg, #43a047 0%, #388e3c 100%); color:#fff; border:none; border-radius:6px; font-size:1.1em; font-weight:700; cursor:pointer; box-shadow:0 2px 8px rgba(67,160,71,0.13); transition:background 0.2s;">
+                    Save Settings
+                </button>
+                <button style="margin-top:1em; width:100%; padding:0.9em; background:linear-gradient(90deg, #e53935 0%, #d32f2f 100%); color:#fff; border:none; border-radius:6px; font-size:1.1em; font-weight:700; cursor:pointer; box-shadow:0 2px 8px rgba(229,57,53,0.13); transition:background 0.2s;">
+                    Cancel
+                </button>
+            </div>
+        `;
+        document.body.appendChild(settingsModal);
+
+        settingsModal.querySelector('button').onclick = function() {
+            const recentCount = parseInt(document.getElementById('settingRecentCount').value);
+            const previewLength = parseInt(document.getElementById('settingPreviewLength').value);
+            localStorage.setItem('recentScrapes', JSON.stringify(JSON.parse(localStorage.getItem('recentScrapes') || '[]').slice(0, recentCount)));
+            localStorage.setItem('previewLength', previewLength);
+            settingsModal.style.display = 'none';
+            alert('Settings saved!');
+            renderRecentScrapes(); // Re-render with new settings
+        };
+
+        settingsModal.querySelector('button:last-of-type').onclick = function() {
+            settingsModal.style.display = 'none';
+        };
+
+        // Close settings modal if clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('settingsModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        };
+
+        // Get settings on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const settings = {
+                recentCount: parseInt(localStorage.getItem('recentScrapes') || '[]').length, // Default to current count
+                previewLength: parseInt(localStorage.getItem('previewLength') || '100')
+            };
+            document.getElementById('settingRecentCount').value = settings.recentCount;
+            document.getElementById('settingPreviewLength').value = settings.previewLength;
+        });
+
+        document.getElementById('settingsBtn').onclick = function() {
+            const settings = {
+                recentCount: parseInt(localStorage.getItem('recentScrapes') || '[]').length, // Default to current count
+                previewLength: parseInt(localStorage.getItem('previewLength') || '100')
+            };
+            document.getElementById('settingRecentCount').value = settings.recentCount;
+            document.getElementById('settingPreviewLength').value = settings.previewLength;
+            document.getElementById('settingsModal').style.display = 'flex';
+        };
+
+        // Welcome Modal Logic
+        document.getElementById('welcomeContinueBtn').onclick = function() {
+            document.getElementById('welcomeModal').style.display = 'none';
+            document.getElementById('authModal').style.display = 'flex';
+        };
+
+        // Auth Modal Logic
+        const loginTab = document.getElementById('loginTab');
+        const signupTab = document.getElementById('signupTab');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const authError = document.getElementById('authError');
+
+        loginTab.onclick = function() {
+            loginTab.style.background = '#43a047';
+            loginTab.style.color = '#fff';
+            signupTab.style.background = '#e0e0e0';
+            signupTab.style.color = '#333';
+            loginForm.style.display = '';
+            signupForm.style.display = 'none';
+            authError.textContent = '';
+        };
+        signupTab.onclick = function() {
+            signupTab.style.background = '#43a047';
+            signupTab.style.color = '#fff';
+            loginTab.style.background = '#e0e0e0';
+            loginTab.style.color = '#333';
+            loginForm.style.display = 'none';
+            signupForm.style.display = '';
+            authError.textContent = '';
+        };
+
+        loginForm.onsubmit = async function(e) {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            authError.textContent = '';
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    localStorage.setItem('authUser', username);
+                    document.getElementById('authModal').style.display = 'none';
+                    document.querySelector('.container').style.display = '';
+                    document.querySelector('footer').style.display = '';
+                } else {
+                    authError.textContent = data.detail || 'Login failed.';
+                }
+            } catch (err) {
+                authError.textContent = 'Login error.';
+            }
+        };
+
+        signupForm.onsubmit = async function(e) {
+            e.preventDefault();
+            const username = document.getElementById('signupUsername').value;
+            const password = document.getElementById('signupPassword').value;
+            authError.textContent = '';
+            try {
+                const response = await fetch('/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    localStorage.setItem('authUser', username);
+                    document.getElementById('authModal').style.display = 'none';
+                    document.querySelector('.container').style.display = '';
+                    document.querySelector('footer').style.display = '';
+                } else {
+                    authError.textContent = data.detail || 'Signup failed.';
+                }
+            } catch (err) {
+                authError.textContent = 'Signup error.';
+            }
+        };
+
+        // Logout Button Logic
+        document.getElementById('logoutBtn').onclick = function() {
+            localStorage.removeItem('authUser');
+            document.querySelector('.container').style.display = 'none';
+            document.querySelector('footer').style.display = 'none';
+            document.getElementById('authModal').style.display = 'flex';
+        };
+    </script>
+</body>
+</html> 
