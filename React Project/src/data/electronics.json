@@ -1,0 +1,123 @@
+[
+  {
+    "id": 1,
+    "name": "Wireless Headphones",
+    "category": "Audio",
+    "price": 129.99,
+    "description": "Premium wireless headphones with noise cancellation",
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400",
+    "rating": 4.5,
+    "stock": 15
+  },
+  {
+    "id": 2,
+    "name": "Smartphone Pro",
+    "category": "Mobile",
+    "price": 899.99,
+    "description": "Latest flagship smartphone with advanced camera system",
+    "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400",
+    "rating": 4.8,
+    "stock": 8
+  },
+  {
+    "id": 3,
+    "name": "Laptop Ultra",
+    "category": "Computers",
+    "price": 1299.99,
+    "description": "High-performance laptop for work and gaming",
+    "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400",
+    "rating": 4.7,
+    "stock": 12
+  },
+  {
+    "id": 4,
+    "name": "Smart Watch",
+    "category": "Wearables",
+    "price": 299.99,
+    "description": "Fitness tracker with heart rate monitor and GPS",
+    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400",
+    "rating": 4.6,
+    "stock": 20
+  },
+  {
+    "id": 5,
+    "name": "Wireless Mouse",
+    "category": "Accessories",
+    "price": 49.99,
+    "description": "Ergonomic wireless mouse with precision tracking",
+    "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?w=400",
+    "rating": 4.4,
+    "stock": 30
+  },
+  {
+    "id": 6,
+    "name": "Mechanical Keyboard",
+    "category": "Accessories",
+    "price": 149.99,
+    "description": "RGB mechanical keyboard with customizable keys",
+    "image": "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=400",
+    "rating": 4.9,
+    "stock": 18
+  },
+  {
+    "id": 7,
+    "name": "4K Monitor",
+    "category": "Displays",
+    "price": 399.99,
+    "description": "27-inch 4K UHD monitor with HDR support",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400",
+    "rating": 4.7,
+    "stock": 10
+  },
+  {
+    "id": 8,
+    "name": "Bluetooth Speaker",
+    "category": "Audio",
+    "price": 79.99,
+    "description": "Portable waterproof Bluetooth speaker",
+    "image": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400",
+    "rating": 4.5,
+    "stock": 25
+  },
+  {
+    "id": 9,
+    "name": "Tablet Pro",
+    "category": "Mobile",
+    "price": 599.99,
+    "description": "10-inch tablet with stylus support",
+    "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400",
+    "rating": 4.6,
+    "stock": 14
+  },
+  {
+    "id": 10,
+    "name": "Gaming Console",
+    "category": "Gaming",
+    "price": 499.99,
+    "description": "Next-gen gaming console with 4K gaming",
+    "image": "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400",
+    "rating": 4.8,
+    "stock": 6
+  },
+  {
+    "id": 11,
+    "name": "Webcam HD",
+    "category": "Accessories",
+    "price": 89.99,
+    "description": "1080p HD webcam with auto-focus",
+    "image": "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=400",
+    "rating": 4.3,
+    "stock": 22
+  },
+  {
+    "id": 12,
+    "name": "USB-C Hub",
+    "category": "Accessories",
+    "price": 39.99,
+    "description": "Multi-port USB-C hub with HDMI and SD card reader",
+    "image": "https://images.unsplash.com/photo-1625842268584-8f3296236761?w=400",
+    "rating": 4.4,
+    "stock": 35
+  }
+]
+
