@@ -1,0 +1,29 @@
+Dependencies to install for this project (matching package.json):
+
+# App/runtime
+expo@^54.0.25
+react@18.3.1
+react-dom@18.3.1
+react-native@0.76.6
+react-native-web@~0.19.12
+
+# Navigation
+@react-navigation/native@6.1.18
+@react-navigation/bottom-tabs@6.5.20
+@react-navigation/drawer@^6.7.2
+@react-navigation/stack@6.4.1
+@react-native-community/masked-view@^0.1.5
+react-native-gesture-handler@~2.14.0
+react-native-reanimated@~3.8.0
+react-native-safe-area-context@4.8.2
+react-native-screens@~3.29.0
+
+# Dev
+@babel/core@^7.26.0
+babel-preset-expo@~54.0.0
+react-refresh@^0.18.0
+
+Install (from project root):
+expo install expo react react-dom react-native react-native-web @react-navigation/native @react-navigation/bottom-tabs @react-navigation/drawer @react-navigation/stack @react-native-community/masked-view react-native-gesture-handler react-native-reanimated react-native-safe-area-context react-native-screens
+npm install --save-dev @babel/core babel-preset-expo react-refresh
+

@@ -1,0 +1,213 @@
+[
+  {
+    "id": 1,
+    "name": "Samsung Galaxy S25 Ultra",
+    "category": "Mobile",
+    "price": 1299.99,
+    "description": "200MP quad camera, Snapdragon flagship chip, 6.8\" AMOLED",
+    "image": "https://images.unsplash.com/photo-1610945265050-70f8fe3e6592?w=500",
+    "rating": 4.9,
+    "stock": 12
+  },
+  {
+    "id": 2,
+    "name": "iPhone 16 Pro Max",
+    "category": "Mobile",
+    "price": 1399.99,
+    "description": "Titanium design, A18 Pro, ProMotion XDR, 5x tetraprism zoom",
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500",
+    "rating": 4.9,
+    "stock": 10
+  },
+  {
+    "id": 3,
+    "name": "Google Pixel 9 Pro XL",
+    "category": "Mobile",
+    "price": 1099.99,
+    "description": "Tensor G4 AI silicon, best-in-class computational photography",
+    "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500",
+    "rating": 4.8,
+    "stock": 16
+  },
+  {
+    "id": 4,
+    "name": "Sony WH-1000XM5",
+    "category": "Audio",
+    "price": 399.99,
+    "description": "Flagship ANC over-ear headphones with 30h battery life",
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500",
+    "rating": 4.9,
+    "stock": 25
+  },
+  {
+    "id": 5,
+    "name": "Bose QuietComfort Ultra",
+    "category": "Audio",
+    "price": 429.99,
+    "description": "Spatial audio, world-class noise cancelling, all-day comfort",
+    "image": "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=500",
+    "rating": 4.8,
+    "stock": 18
+  },
+  {
+    "id": 6,
+    "name": "MacBook Pro 16 M4",
+    "category": "Computers",
+    "price": 3499.99,
+    "description": "M4 Pro, Liquid Retina XDR, all-day battery for pro workflows",
+    "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500",
+    "rating": 4.9,
+    "stock": 7
+  },
+  {
+    "id": 7,
+    "name": "Dell XPS 15 OLED",
+    "category": "Computers",
+    "price": 2199.99,
+    "description": "13th-gen Intel, RTX graphics, stunning 3.5K OLED display",
+    "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500",
+    "rating": 4.7,
+    "stock": 9
+  },
+  {
+    "id": 8,
+    "name": "Razer Blade 16",
+    "category": "Computers",
+    "price": 2899.99,
+    "description": "RTX 4080 laptop GPU, 240Hz QHD+, CNC aluminum build",
+    "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500",
+    "rating": 4.8,
+    "stock": 11
+  },
+  {
+    "id": 9,
+    "name": "Apple Watch Series 10",
+    "category": "Wearables",
+    "price": 499.99,
+    "description": "Advanced health sensors, brighter display, 2-day battery",
+    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500",
+    "rating": 4.7,
+    "stock": 20
+  },
+  {
+    "id": 10,
+    "name": "Garmin Fenix 8 Pro",
+    "category": "Wearables",
+    "price": 799.99,
+    "description": "Multi-band GPS, solar charging, premium training metrics",
+    "image": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?w=500",
+    "rating": 4.8,
+    "stock": 14
+  },
+  {
+    "id": 11,
+    "name": "Logitech MX Master 4",
+    "category": "Accessories",
+    "price": 129.99,
+    "description": "Ergonomic wireless mouse with MagSpeed scroll and Flow",
+    "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?w=500",
+    "rating": 4.8,
+    "stock": 32
+  },
+  {
+    "id": 12,
+    "name": "Keychron Q1 Pro",
+    "category": "Accessories",
+    "price": 199.99,
+    "description": "Wireless QMK/VIA mechanical keyboard, aluminum chassis",
+    "image": "https://images.unsplash.com/photo-1545239351-46a0407b1833?w=500",
+    "rating": 4.7,
+    "stock": 22
+  },
+  {
+    "id": 13,
+    "name": "Anker Prime 140W GaN",
+    "category": "Accessories",
+    "price": 119.99,
+    "description": "Triple-port fast charger for laptops, tablets, and phones",
+    "image": "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=500",
+    "rating": 4.6,
+    "stock": 28
+  },
+  {
+    "id": 14,
+    "name": "LG UltraGear 34\" OLED",
+    "category": "Displays",
+    "price": 1499.99,
+    "description": "3440x1440 240Hz OLED ultrawide with G-SYNC compatibility",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500",
+    "rating": 4.9,
+    "stock": 8
+  },
+  {
+    "id": 15,
+    "name": "Samsung Odyssey G8 4K",
+    "category": "Displays",
+    "price": 1299.99,
+    "description": "32\" 4K 240Hz mini-LED gaming monitor with HDR1000",
+    "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500",
+    "rating": 4.7,
+    "stock": 10
+  },
+  {
+    "id": 16,
+    "name": "PlayStation 5 Slim",
+    "category": "Gaming",
+    "price": 499.99,
+    "description": "Next-gen console with Tempest 3D audio and haptics",
+    "image": "https://images.unsplash.com/photo-1606811841689-23dfddce3e92?w=500",
+    "rating": 4.8,
+    "stock": 15
+  },
+  {
+    "id": 17,
+    "name": "Xbox Series X",
+    "category": "Gaming",
+    "price": 499.99,
+    "description": "4K/120 gaming, quick resume, Dolby Vision & Atmos",
+    "image": "https://images.unsplash.com/photo-1606813907291-1e03c6b59c07?w=500",
+    "rating": 4.8,
+    "stock": 13
+  },
+  {
+    "id": 18,
+    "name": "Nintendo Switch OLED",
+    "category": "Gaming",
+    "price": 349.99,
+    "description": "Vivid OLED display, docked and handheld hybrid gaming",
+    "image": "https://images.unsplash.com/photo-1606811842630-7df0f609f0ae?w=500",
+    "rating": 4.7,
+    "stock": 18
+  },
+  {
+    "id": 19,
+    "name": "Sonos Era 300",
+    "category": "Audio",
+    "price": 449.99,
+    "description": "Spatial audio smart speaker with Wi‑Fi and Bluetooth",
+    "image": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500",
+    "rating": 4.7,
+    "stock": 20
+  },
+  {
+    "id": 20,
+    "name": "iPad Pro 13 (M4)",
+    "category": "Mobile",
+    "price": 1299.99,
+    "description": "Ultra-thin tandem OLED, M4 chip, Apple Pencil Pro support",
+    "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500",
+    "rating": 4.8,
+    "stock": 17
+  },
+  {
+    "id": 21,
+    "name": "DJI Air 3",
+    "category": "Accessories",
+    "price": 1099.99,
+    "description": "Dual-camera drone, 46-min flight, omnidirectional sensing",
+    "image": "https://images.unsplash.com/photo-1508615039623-a25605d2b022?w=500",
+    "rating": 4.7,
+    "stock": 9
+  }
+]
+
