@@ -8,15 +8,18 @@ import {
   TextInput,
   ActivityIndicator,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import ProductCard from "../components/ProductCard";
 import electronicsData from "../data/electronics.json";
 
 const ElectronicsShopScreen = ({ navigation }) => {
+  const route = useRoute();
+  const categoryFromRoute = route.params?.category;
+  
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState(categoryFromRoute || "All");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -27,6 +30,13 @@ const ElectronicsShopScreen = ({ navigation }) => {
       setLoading(false);
     }, 500);
   }, []);
+
+  useEffect(() => {
+    // Update category when route params change
+    if (categoryFromRoute) {
+      setSelectedCategory(categoryFromRoute);
+    }
+  }, [categoryFromRoute]);
 
   useEffect(() => {
     filterProducts();

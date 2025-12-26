@@ -174,7 +174,7 @@ const HomeScreen = ({ navigation }) => {
             <TouchableOpacity
               key={cat.key}
               style={styles.categoryCard}
-              onPress={() => navigation.navigate("ElectronicsShop")}
+              onPress={() => navigation.navigate("ElectronicsShop", { category: cat.key })}
               activeOpacity={0.9}
             >
               <View style={styles.categoryIconWrap}>
@@ -198,7 +198,7 @@ const HomeScreen = ({ navigation }) => {
             <Text style={styles.sectionLink}>Browse shop</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.productsGrid}>
+        <View style={styles.productsList}>
           {featuredProducts.map((product) => (
             <ProductCard
               key={product.id}
@@ -409,7 +409,8 @@ const styles = StyleSheet.create({
   categoryGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "center",
+    alignItems: "center",
   },
   categoryCard: {
     width: "48%",
@@ -417,6 +418,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     padding: 14,
     marginBottom: 14,
+    marginHorizontal: 4,
     borderWidth: 1,
     borderColor: "rgba(46, 204, 113, 0.12)",
   },
@@ -451,10 +453,8 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 13,
   },
-  productsGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
+  productsList: {
+    flexDirection: "column",
   },
 });
 

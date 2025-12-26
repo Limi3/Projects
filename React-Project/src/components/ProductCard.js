@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: 'transparent',
     borderRadius: 12,
-    margin: 6,
-    width: '48%',
+    marginBottom: 16,
+    width: '100%',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

@@ -1,77 +1,19 @@
 import React from "react";
-import { Text, View, ScrollView, StyleSheet, ImageBackground } from "react-native";
+import { Text, View, ScrollView, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
-const stats = [
-  { label: "Happy customers", value: "250K+" },
-  { label: "Products curated", value: "2K+" },
-  { label: "Avg. rating", value: "4.8★" },
-  { label: "Global shipping", value: "35+ countries" },
-];
 
 const AboutScreen = () => {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <ImageBackground
-        source={{ uri: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1400" }}
-        style={styles.headerImage}
-        resizeMode="cover"
-      >
-        <View style={styles.headerOverlay}>
-          <Text style={styles.kicker}>Built for the tech-obsessed</Text>
-          <Text style={styles.headerTitle}>About TechStore</Text>
-          <Text style={styles.headerSubtitle}>
-            We curate the best gear so creators, gamers, and doers can focus on what matters.
-          </Text>
-          <View style={styles.heroBadges}>
-            <View style={styles.badge}>
-              <MaterialCommunityIcons name="shield-check" size={18} color="#0f172a" />
-              <Text style={styles.badgeText}>Trusted by pros</Text>
-            </View>
-            <View style={styles.badge}>
-              <MaterialCommunityIcons name="clock-fast" size={18} color="#0f172a" />
-              <Text style={styles.badgeText}>Fast dispatch</Text>
-            </View>
-          </View>
-        </View>
-      </ImageBackground>
-
       <View style={styles.content}>
-        <View style={styles.statsRow}>
-          {stats.map((s) => (
-            <View key={s.label} style={styles.statCard}>
-              <Text style={styles.statValue}>{s.value}</Text>
-              <Text style={styles.statLabel}>{s.label}</Text>
-            </View>
-          ))}
-        </View>
-
-        <View style={styles.card}>
-          <View style={styles.iconContainer}>
-            <MaterialCommunityIcons name="store" size={40} color="#2ecc71" />
-          </View>
-          <Text style={styles.cardTitle}>Our Story</Text>
-          <Text style={styles.cardText}>
-            TechStore was founded to remove the noise from tech shopping. We hand-pick premium
-            devices, verify specs, and negotiate the best value so you can upgrade with confidence.
-          </Text>
-        </View>
-
-        <View style={styles.card}>
-          <View style={styles.iconContainer}>
-            <MaterialCommunityIcons name="target" size={40} color="#2ecc71" />
-          </View>
-          <Text style={styles.cardTitle}>Our Mission</Text>
-          <Text style={styles.cardText}>
-            To be your trusted partner in technology—guiding every purchase with expertise,
-            transparent pricing, and human support when you need it.
-          </Text>
-        </View>
+        <Text style={styles.introText}>
+          To be your trusted partner in technology— guiding every purchase with expertise, transparent pricing, and human support when you need it.
+        </Text>
 
         <View style={styles.dualRow}>
           <View style={[styles.card, styles.half]}>
-            <View style={styles.iconContainer}>
-              <MaterialCommunityIcons name="star-circle" size={40} color="#2ecc71" />
+            <View style={styles.iconCircle}>
+              <MaterialCommunityIcons name="star" size={28} color="#2ecc71" />
             </View>
             <Text style={styles.cardTitle}>Why Choose Us</Text>
             <View style={styles.featureList}>
@@ -84,13 +26,12 @@ const AboutScreen = () => {
           </View>
 
           <View style={[styles.card, styles.half]}>
-            <View style={styles.iconContainer}>
-              <MaterialCommunityIcons name="headset" size={40} color="#2ecc71" />
+            <View style={styles.iconCircle}>
+              <MaterialCommunityIcons name="headset" size={28} color="#2ecc71" />
             </View>
-            <Text style={styles.cardTitle}>We’re Here to Help</Text>
+            <Text style={styles.cardTitle}>We're Here to Help</Text>
             <Text style={styles.cardText}>
-              Need sizing advice, compatibility checks, or order help? Our specialists respond fast
-              across chat, email, and phone.
+              Need sizing advice, compatibility checks, or order help? Our specialists respond fast across chat, email, and phone.
             </Text>
             <View style={styles.contactInfo}>
               <Contact icon="email" text="support@techstore.com" />
@@ -117,7 +58,7 @@ const Feature = ({ text }) => (
 
 const Contact = ({ icon, text }) => (
   <View style={styles.contactItem}>
-    <MaterialCommunityIcons name={icon} size={20} color="#94a3b8" />
+    <MaterialCommunityIcons name={icon} size={20} color="#2ecc71" />
     <Text style={styles.contactText}>{text}</Text>
   </View>
 );
@@ -125,84 +66,18 @@ const Contact = ({ icon, text }) => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0c1220",
-  },
-  headerImage: {
-    width: "100%",
-    height: 320,
-    justifyContent: "flex-end",
-  },
-  headerOverlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
-    paddingHorizontal: 20,
-    paddingVertical: 26,
-  },
-  kicker: {
-    color: "#9ae6b4",
-    textTransform: "uppercase",
-    letterSpacing: 1.2,
-    fontSize: 12,
-    fontWeight: "700",
-    marginBottom: 6,
-  },
-  headerTitle: {
-    fontSize: 34,
-    fontWeight: "800",
-    color: "#fff",
-    marginBottom: 6,
-  },
-  headerSubtitle: {
-    color: "#e2e8f0",
-    fontSize: 15,
-    lineHeight: 22,
-    maxWidth: 320,
-  },
-  heroBadges: {
-    flexDirection: "row",
-    marginTop: 14,
-    gap: 10,
-  },
-  badge: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#2ecc71",
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderRadius: 12,
-    gap: 8,
-  },
-  badgeText: {
-    color: "#0f172a",
-    fontWeight: "700",
-    fontSize: 12,
+    backgroundColor: "#0f172a",
   },
   content: {
     padding: 20,
+    paddingTop: 16,
   },
-  statsRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    marginBottom: 16,
-  },
-  statCard: {
-    width: "48%",
-    backgroundColor: "#0f172a",
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: "rgba(46,204,113,0.12)",
-  },
-  statValue: {
+  introText: {
+    fontSize: 15,
     color: "#e2e8f0",
-    fontSize: 22,
-    fontWeight: "800",
-    marginBottom: 6,
-  },
-  statLabel: {
-    color: "#94a3b8",
-    fontSize: 13,
+    lineHeight: 22,
+    marginBottom: 20,
+    textAlign: "left",
   },
   card: {
     backgroundColor: "#0f172a",
@@ -213,56 +88,62 @@ const styles = StyleSheet.create({
     borderColor: "rgba(46,204,113,0.12)",
   },
   dualRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    gap: 12,
+    flexDirection: "column",
+    marginBottom: 20,
   },
   half: {
-    width: "48%",
+    width: "100%",
   },
-  iconContainer: {
+  iconCircle: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#0f172a",
+    justifyContent: "center",
     alignItems: "center",
     marginBottom: 14,
+    alignSelf: "center",
   },
   cardTitle: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "800",
     color: "#e2e8f0",
-    marginBottom: 10,
+    marginBottom: 12,
     textAlign: "center",
   },
   cardText: {
-    fontSize: 15,
-    color: "#cbd5e1",
-    lineHeight: 22,
+    fontSize: 14,
+    color: "#e2e8f0",
+    lineHeight: 20,
     textAlign: "left",
+    marginBottom: 12,
   },
   featureList: {
-    marginTop: 6,
+    marginTop: 4,
   },
   featureItem: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 10,
-    gap: 10,
   },
   featureText: {
-    fontSize: 15,
-    color: "#cbd5e1",
+    fontSize: 14,
+    color: "#e2e8f0",
+    marginLeft: 10,
     flexShrink: 1,
   },
   contactInfo: {
-    marginTop: 14,
-    gap: 12,
+    marginTop: 8,
   },
   contactItem: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
+    marginBottom: 10,
   },
   contactText: {
-    fontSize: 15,
-    color: "#cbd5e1",
+    fontSize: 14,
+    color: "#e2e8f0",
+    marginLeft: 10,
   },
   footer: {
     paddingVertical: 20,
