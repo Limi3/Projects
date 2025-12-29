@@ -23,7 +23,7 @@ const ElectronicsShopScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate API call
+    
     setTimeout(() => {
       setProducts(electronicsData);
       setFilteredProducts(electronicsData);
@@ -32,7 +32,7 @@ const ElectronicsShopScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    // Update category when route params change
+   
     if (categoryFromRoute) {
       setSelectedCategory(categoryFromRoute);
     }
@@ -45,14 +45,14 @@ const ElectronicsShopScreen = ({ navigation }) => {
   const filterProducts = () => {
     let filtered = [...products];
 
-    // Filter by category
+ 
     if (selectedCategory !== "All") {
       filtered = filtered.filter(
         (product) => product.category === selectedCategory
       );
     }
 
-    // Filter by search query
+   
     if (searchQuery.trim() !== "") {
       filtered = filtered.filter(
         (product) =>
